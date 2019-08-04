@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Unica+One|Lato&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style2.css">
+  <title>Sign up page</title>
+
+</head>
+
+<body>
+
+
+  <!-- ************************************************************
+
+                          SIGN UP PAGE
+
+  ************************************************************ -->
+
+  <section class="container">
+
+
+    <section>
+      <h1>Photoport</h1>
+      <p class="tagline"> A space where photographers of all levels can learn and grow with each other!</p>
+    </section>
+
+
+    <form action="/signup" method="POST">
+      <div>
+        <p class="label"> First Name:</p>
+        <input class="first-name" type="text" name="firstname" value="" placeholder="First name">
+        <p class="label"> Last Name:</p>
+        <input class="last-name" type="text" name="lastname" value="" placeholder="Last name">
+        <p class="label"> Pronouns:</p>
+        <input class="pronouns" type="text" name="pronouns" value="" placeholder="Pronouns">
+      </div>
+
+      <div>
+        <p class="label"> Email:</p>
+        <input class="email" type="email" name="email" value="" placeholder="Email Address">
+      </div>
+
+      <div>
+        <p class="label"> Password:</p>
+        <input class="password" type="password" name="password" value="" placeholder="Password">
+      </div>
+
+      <div>
+        <p class="label white"> City & State:</p>
+        <input class="city" type="text" name="city" value="" placeholder="City">
+        <input class="state" type="text" name="state" value="" placeholder="State">
+      </div>
+
+      <div>
+        <p class="drop-label">What is your experience with photography?</p>
+        <select name="experience">
+          <option value="New">I've never touched a camera and want to</option>
+          <option value="Intermediate">I shoot for fun, sometimes!</option>
+          <option value="Expert">I am a photographer </option>
+        </select>
+      </div>
+
+
+      <div>
+        <p class="drop-label"> What are you hoping to gain?</p>
+        <select name="gain">
+
+          <option value="Community">A sense of community </option>
+          <option value="Friendship">Friendship with other photographers!</option>
+          <option value="Mentorship">Mentorship </option>
+          <option value="Experience">More exprience </option>
+        </select>
+      </div>
+
+
+
+
+      <div>
+        <label for="photograph">Shoot your shot:</label>
+        <input class="pic1" type="file" id="photograph" name="photo1" accept="image/png, image/jpeg">
+        <input class="pic1" type="file" id="photograph" name="photo2" accept="image/png, image/jpeg">
+      </div>
+       <button class="signup-button" type="submit" name="button">I'm ready,sign me up!</button>
+    </form>
+
+  </section>
+
+
+
+
+
+  <script type="text/javascript" src="main.js"></script>
+
+</body>
+
+</html>

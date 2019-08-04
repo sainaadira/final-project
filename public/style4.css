@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Unica One', cursive;
+  background-color: #FBFCFC;
+  color: #6288a5;
+}
+
+.container {
+  width: 100%;
+}
+
+.nav {
+  width: 100%;
+  height: 90px;
+}
+
+.fas, .fa-bars {
+  display: none;
+}
+
+h1 {
+  text-align: center;
+  font-size: 4.5rem;
+  margin-bottom: -8px;
+  margin-top: -14px;
+}
+
+p {
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+li {
+  list-style: none;
+  display: inline-block;
+  padding: 18px;
+  float: right;
+  margin-right: 3%;
+}
+
+a {
+  text-decoration: none;
+  color: #6288a5;
+}
+
+.vert {
+  width: 30%;
+  height: 460px;
+  float: left;
+  border-radius: 9%;
+  padding: 4px;
+  margin-left: 2%;
+}
+
+.hori {
+  width: 44.5%;
+  height: 300px;
+  border-radius: 6%;
+  margin-left: 3%;
+}
+
+/* ***************************** */
+/* RESPONSIVE */
+/* Mobile  */
+/* ********************************* */
+
+@media only screen and (max-width:767px) {
+  .container {
+    width: 100%;
+  }
+
+  .nav li {
+    display: none;
+  }
+
+  fas, .fa-bars {
+    display: inline-block;
+    float: right;
+    font-size: 1.5rem;
+    margin-right: 10%;
+  }
+
+  h1 {
+    margin: -6px;
+  }
+
+  .hori, .vert {
+    width: 73%;
+    margin-left: 13%;
+  }
+}
+
+/* ************************ */
+/* RESPONSIVE */
+/* Ipad */
+/* ************************** */
+@media (min-width:768px) and (max-width:1024px) {
+  .nav li {
+    display: none;
+  }
+
+  fas, .fa-bars {
+    display: inline-block;
+    float: right;
+    font-size: 1.5rem;
+    margin-right: 10%;
+  }
+
+  .hori, .vert {
+    width: 71%;
+    margin-left: 15%;
+  }
+}
