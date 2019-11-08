@@ -37,7 +37,12 @@
     that have been critqued by other photographers</p>
 
 
-    <section>
+
+    <% for(let i=0; i<user.portfolio.length; i++){%>
+      <img class="left" src="/portfolio-img/<%=user.portfolio[i]%>" alt="Portfolio Image <%=i+1%>">
+    <%}%>
+
+    <!-- <section>
       <div>
         <img class="vert" src="images/kt.jpg" alt="Katytarika Bartel">
         <img class="vert " src="images/mel.jpg" alt="Ann Jiang">
@@ -70,7 +75,7 @@
     </section>
 
 
-  </section><!-- end container -->
+  </section><end container -->
 
 
 </body>

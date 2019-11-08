@@ -35,47 +35,48 @@
 
     <h1> Select Photo(s) You Want To Add To Your Portfolio</h1>
 
-    <section class="photo1">
-      <div>
-        <a href="/portfolio"><img class="left" src="images/kt.jpg" alt="Katytarika Bartel"></a>
-      </div>
+    <section class="photos">
+
+      <% for(var i=0; i<feedback.length; i++) {%>
+
+
+      <a href="/portfolio"><img class="left" src="/portfolio-img/<%=user.portfolio[0]%>" alt="Portfolio Image 1"></a>
+
+      <% } %>
+
     </section>
 
-    <section class="photo2">
-      <div>
-        <a href="/portfolio"><img class="right" src="images/ann.jpg" alt="Ann Jiang"></a>
-      </div>
-    </section>
+  </section>
 
+
+  <div>
 
     <section class="comment-sec">
       <h2>Need feeback on your photos?</h2>
       <p class="advice">get advice from users below:</p>
 
       <ul class="messages">
-           <% for(var i=0; i<feedback.length; i++) {%>
-             <li class="message">
-               <span><%= feedback[i].comments %></span>
-               <span><%= feedback[i].author %></span>
-             </li>
-           <% } %>
-           </ul>
-
-
-
-  <form action="/mainpage" method="POST">
-    <input class="author" type="text" name="author">
-    <input class="comment" type="text" placeholder="leave feedback here" name="comments">
-    <button id="submit-comment" type="submit">Submit</button>
-  </form>
-</div>
-
-
-
-
-
+        <% for(var i=0; i<feedback.length; i++) {%>
+        <li class="message">
+          <span><%= feedback[i].comments %></span>
+          <span><%= feedback[i].author %></span>
+        </li>
+        <% } %>
+      </ul>
     </section>
-  </section> <!-- end container -->
+
+    <form action="/mainpage" method="POST">
+      <input class="author" type="text" name="author">
+      <input class="comments" type="text" placeholder="leave feedback here" name="comments">
+      <button id="submit-comment" type="submit">Submit</button>
+    </form>
+  </div>
+
+
+
+
+
+  <!-- end container -->
   <!-- section:right side -->
   <section class="chatsec clearfix">
     <h3>Connect with other photographers!</h3>
