@@ -13,12 +13,13 @@ module.exports = function(app, passport, db) {
 
   // to get the main page
 
-  app.get('/mainpage', function(req, res) {
+  app.get('/mainpage', isLoggedIn, function(req, res) {
     db.collection('feedback').find().toArray((err, result) => {
       console.log('main page feedback', result)
       if (err) return console.log(err)
       res.render('mainpage.ejs', {
-        feedback:result
+        feedback: result,
+        user: req.user
         // user: req.user,
 
       })
@@ -40,11 +41,11 @@ module.exports = function(app, passport, db) {
   });
 
 
-    // LOGOUT ==============================
-    app.get('/logout', function(req, res) {
-      req.logout();
-      res.redirect('/');
-    });
+  // LOGOUT ==============================
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+  });
 
 
 
@@ -81,22 +82,30 @@ module.exports = function(app, passport, db) {
   app.post('/mainpage', (req, res) => {
     db.collection('feedback').save({
       comments: req.body.comments,
-      author: req.body.author
+      author: req.user.firstname +  ' ' + req.user.lastname
     }, (err, result) => {
       if (err) return console.log(err)
-      console.log('saved to database')
-      res.redirect('/mainpage')
+      console.log('saved to database ******************', result)
+
+      res.json({
+        comments: req.body.comments,
+        author: req.body.author
+      })
     })
   })
 
+  // save document to feedback collection and document had property called comments
+  // getting comments from request using reqb.body .comments
+  // author is received from users logged in sessiion
 
-// MAIN PAGE UPDATE COMMENTS===================
+
+  // MAIN PAGE UPDATE COMMENTS===================
 
   app.put('/mainpage', (req, res) => {
     db.collection('feedback')
       .findOneAndUpdate({
         comments: req.body.comments,
-      },{
+      }, {
         sort: {
           _id: -1
         },
@@ -108,11 +117,11 @@ module.exports = function(app, passport, db) {
   })
 
 
-// MAIN PAGE DELETE COMMENTS =====================
+  // MAIN PAGE DELETE COMMENTS =====================
   app.delete('/mainpage', (req, res) => {
     db.collection('feedback').findOneAndDelete({
       comments: req.body.comments,
-      author:req.body.comments,
+      author: req.body.comments,
     }, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Message deleted!')
@@ -134,7 +143,7 @@ module.exports = function(app, passport, db) {
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/profile', // redirect to the secure profile section
+    successRedirect: '/portfolio', // redirect to the secure profile section
     failureRedirect: '/login', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
   }));
@@ -146,15 +155,56 @@ module.exports = function(app, passport, db) {
       message: req.flash('signupMessage')
     });
   });
+  const multer = require('multer')
+  const upload = multer({
+    dest: 'public/portfolio-img/'
+  });
 
+
+  const maxUpload = 2
+  const cpUpload = upload.array('portfolio', maxUpload)
+
+   app.post('/signup', function(req,res){
+     var newUserSchema = new Schema();
+     newUserSchema.img.data= fs.readFileSync(req.files.userPhoto.path)
+     newUserSchema.img.contentType= 'image/png';
+     newUserSchema.save()
+   })
+
+
+
+//
+//   app.use(multer({ dest: ‘./uploads/’,
+//  rename: function (fieldname, filename) {
+//    return filename;
+//  },
+// }));
 
 
   // process the signup form
-  app.post('/signup', passport.authenticate('local-signup', {
+  app.post('/signup', [cpUpload, passport.authenticate('local-signup', {
     successRedirect: '/mainpage', // redirect to the secure profile section
     failureRedirect: '/signup', // redirect back to the signup page if there is an error
     failureFlash: true // allow flash messages
-  }));
+  })], (req, res) => {
+
+    // console.log('uploaded files', req.files);
+    // res.redirect('/mainpage')
+  })
+  // ,/* cpUpload,*/ function(req, res) {
+  //   console.log('these are port files', req.files)
+  // });
+  //
+
+  //
+  // app.post('/signup', (req, res) => {
+  //     console.log('muli-part body', req.body);
+  //     res.send("thanks")
+  // })
+
+
+
+
 
   // =============================================================================
   // UNLINK ACCOUNTS =============================================================
@@ -177,8 +227,14 @@ module.exports = function(app, passport, db) {
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
+  console.log('running isloggedin');
+
+  if (req.isAuthenticated()) {
+
+    console.log('log in succeeded');
     return next();
 
+  }
+  console.log('log in failed');
   res.redirect('/');
 }
